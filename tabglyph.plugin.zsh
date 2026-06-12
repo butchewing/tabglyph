@@ -69,3 +69,12 @@ em() {
 nf-find() { print -l -- ${(ok)NF_ICONS} | grep -i -- "$1" }
 fa-find() { print -l -- ${(ok)FA_ICONS} | grep -i -- "$1" }
 em-find() { for k in ${(ok)EMOJI}; do print -- "$k $EMOJI[$k]"; done | grep -i -- "$1" }
+
+# --- maintenance ----------------------------------------------------------
+# `tabglyph-gen` works regardless of install method (no PATH setup needed).
+tabglyph-gen() { python3 "$TABGLYPH_DIR/bin/tabglyph-gen" "$@" }
+
+# First-run nudge: if no Nerd Font table was loaded, tell the user how to build it.
+if [[ -o interactive ]] && (( ${#NF_ICONS} == 0 )); then
+  print -ru2 -- "tabglyph: no icon tables yet — run 'tabglyph-gen' to build them from your installed fonts."
+fi

@@ -33,7 +33,15 @@ tabglyph turns that into an ergonomic workflow: it reads the icon names baked in
 
 > Font Awesome and emoji helpers are included too. Emoji also render in tab labels; Font Awesome Pro renders in *window* titles.
 
+### Platform support
+
+The `tab`, `nf`, `fa`, `em`, and `*-find` commands are plain zsh + `OSC 0` — they work in **any** terminal on **any** OS. A glyph shows up wherever the title is rendered in a font that contains it.
+
+The *special* part — icons in the **macOS tab strip** — is the Ghostty + single-Nerd-Font trick this project is built around. On **Linux/GTK**, Ghostty tab titles are themeable via GTK CSS instead, and on other terminals your mileage varies. So: the tooling is cross-platform; the headline "icons in macOS tab labels" result is Ghostty-on-macOS.
+
 ## Install
+
+### Quick install (recommended)
 
 ```sh
 git clone https://github.com/butchewing/tabglyph.git ~/.tabglyph
@@ -41,6 +49,29 @@ git clone https://github.com/butchewing/tabglyph.git ~/.tabglyph
 ```
 
 The installer generates your icon tables, adds one `source` line to `~/.zshrc`, and prints the exact Nerd Font family name to use.
+
+### Plugin managers
+
+tabglyph is a standard zsh plugin. After installing via a manager, run **`tabglyph-gen`** once to build the icon tables from your fonts (the manager clones the repo but doesn't run the installer).
+
+```sh
+# zinit
+zinit light butchewing/tabglyph
+
+# antidote — add to ~/.zsh_plugins.txt
+butchewing/tabglyph
+
+# zplug
+zplug "butchewing/tabglyph"
+
+# oh-my-zsh — clone into custom plugins, then add `tabglyph` to plugins=(…)
+git clone https://github.com/butchewing/tabglyph.git \
+  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/tabglyph"
+```
+
+```sh
+tabglyph-gen        # build/refresh icon tables (run once after install)
+```
 
 Then in your **Ghostty config** (`~/Library/Application Support/com.mitchellh.ghostty/config`):
 
@@ -112,8 +143,24 @@ echo "$(nf oct-flame) build failed"
 ### Regenerating after a font update
 
 ```sh
-~/.tabglyph/bin/tabglyph-gen                       # auto-detect
-~/.tabglyph/bin/tabglyph-gen --nerd-font CommitMono # pick a specific font
+tabglyph-gen                        # auto-detect (function provided by the plugin)
+tabglyph-gen --nerd-font CommitMono # pick a specific font
+```
+
+## Bonus: icons in the terminal *body*
+
+The glyph primitives work anywhere, so you can drop icons into prompts, scripts, or output — not just titles:
+
+```sh
+echo "$(nf oct-flame) build failed"
+PROMPT="$(nf dev-rust) %~ ❯ "
+```
+
+For these to render inline, your **terminal `font-family`** (the grid font, separate from the title font) needs the glyphs. Easiest path: make a Nerd Font your main font, or add one as a fallback entry — Ghostty supports a repeated key, and `font-codepoint-map` for per-range control ([ghostty#9787](https://github.com/ghostty-org/ghostty/discussions/9787)):
+
+```
+font-family = Your Coding Font
+font-family = 0xProto Nerd Font   # fallback: supplies the icon glyphs
 ```
 
 ## The gotchas it solves
