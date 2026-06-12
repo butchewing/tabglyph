@@ -134,6 +134,13 @@ echo "$(nf oct-flame) build failed"
 | Emoji (~50) | `em` | `em-find` | ✅ yes |
 | Font Awesome Pro | `fa` | `fa-find` | ⚠️ window titles only |
 
+### Naming notes
+
+Two things trip people up — `nf-find` is the cure for both:
+
+- **Underscores, not hyphens.** Nerd Fonts name multi-word icons with underscores: `fa-wave_square`, `md-heart_pulse`. tabglyph auto-retries the underscore form if you type Font Awesome's hyphen style (`fa-wave-square` just works), but the canonical names use `_`.
+- **Font Awesome *free*, not Pro.** Nerd Fonts bundle the free Font Awesome set, so Pro-only icons (e.g. `wave-pulse`) aren't present — `tab` will warn and suggest a search. Look for an equivalent from another set (`nf-find pulse` → `md-pulse`, `oct-pulse`, `fae-pulse`). FA Pro glyphs still work in *window* titles via the `fa` helper.
+
 ## How it works
 
 - **Icon names → codepoints.** Nerd Fonts name their glyphs meaningfully in the font's `cmap` (`fa-rocket`, `md-pulse`, `oct-git_branch`). `tabglyph-gen` reads those names straight from *your* installed font — no bundled icon database to drift out of date — and writes a zsh lookup table.
