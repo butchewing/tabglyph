@@ -12,9 +12,7 @@ tab Deploying to prod       # plain text, no glyph
 
 One `tab` command. ~10,000 searchable icons. Works in **Ghostty** tab labels on macOS — the place everyone says you can't theme.
 
-<!-- Drop a screenshot at docs/demo.png and uncomment:
-![tabglyph demo](docs/demo.png)
--->
+![tabglyph demo — five Ghostty tabs, each with a different icon set rendering in the macOS tab strip](docs/demo.png)
 
 ---
 
@@ -128,11 +126,18 @@ Hard-won during a very long debugging session:
 4. Use **OSC 0**, not OSC 1.
 5. Font changes need a **full app restart**, not a reload.
 
+## References
+
+The Ghostty discussions that made this possible (and that document the journey):
+
+- [ghostty#5484](https://github.com/ghostty-org/ghostty/discussions/5484) — "tab titles can't be themed on macOS." The wall: macOS draws tab labels in the system font, so Private-Use glyphs tofu.
+- [ghostty#9650](https://github.com/ghostty-org/ghostty/discussions/9650) — **the unlock.** A collaborator confirms `window-title-font-family` works on macOS, and a single Nerd Font renders icons in the tab titles.
+- [ghostty#9787](https://github.com/ghostty-org/ghostty/discussions/9787) — multiple `font-family` entries, fallback **ordering**, and the `font-codepoint-map` setting (per-codepoint font control) — useful for icon glyphs in the terminal *body*, not just titles.
+
 ## Credits
 
-- The macOS Nerd-Font-in-title insight: [ghostty#9650](https://github.com/ghostty-org/ghostty/discussions/9650) and [ghostty#5484](https://github.com/ghostty-org/ghostty/discussions/5484).
 - [Nerd Fonts](https://www.nerdfonts.com) for patching thousands of icons into coding fonts.
-- [Ghostty](https://ghostty.org) by Mitchell Hashimoto.
+- [Ghostty](https://ghostty.org) by Mitchell Hashimoto, and the community in the threads above.
 
 ## License
 
