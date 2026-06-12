@@ -1,0 +1,16 @@
+# Example Ghostty config for tabglyph (macOS).
+# File location: ~/Library/Application Support/com.mitchellh.ghostty/config
+# After editing, FULLY quit and reopen Ghostty — a reload does not apply fonts.
+
+# The title/tab bar uses its OWN font, separate from the terminal `font-family`.
+# Point it at a single Nerd Font so glyphs render in the tab labels. Use the
+# exact family name tabglyph-gen prints (often the "Propo" proportional cut).
+window-title-font-family = 0xProto Nerd Font Propo
+
+# Optional: let manually-set titles persist instead of being auto-rewritten.
+shell-integration-features = no-title
+
+# --- your usual settings (example) ---------------------------------------
+# font-family = Monaspace Neon
+# font-size = 14
+# theme = Cursor Dark

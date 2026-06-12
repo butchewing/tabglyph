@@ -1,0 +1,10 @@
+# Generated icon tables live in the user's cache, never in the repo.
+nf-icons.zsh
+fa-icons.zsh
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
